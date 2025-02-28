@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#CDB880"
+
+    android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="משימות שלי"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <ListView
+        android:id="@+id/listViewTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="594dp"
+        android:background="#DDCEA4"
+        android:divider="#2C1E1E"
+        android:dividerHeight="1dp" />
+    <Button
+        android:id="@+id/btnDeleteAllTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מחק את כל המשימות"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#D32F2F"
+        android:textColor="@android:color/white"
+        android:padding="10dp"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
