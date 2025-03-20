@@ -5,6 +5,40 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CDB880"
     tools:context=".Screens.Info">
 
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-71dp" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to you do to list. "
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="250dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="358dp"
+        android:layout_height="40dp"
+        android:text="firstly you going to sign in in order to make your list and watching them"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="269dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="356dp"
+        android:layout_height="53dp"
+        android:text="after you sign in you can start!! first click the add task button after that fill the everything and thats it! eazy and simple and your list is in the my tasks button ."
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="309dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
