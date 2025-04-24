@@ -12,23 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.project.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
     private Context context;
     private List<Task> taskList;
-    private OnTaskDeleteListener deleteListener; // ממשק למחיקה
-
-    public interface OnTaskDeleteListener {
-        void onTaskDelete(int position);
-    }
 
     public TaskAdapter(Context context, List<Task> taskList) {
         super(context, R.layout.task_item, taskList);
         this.context = context;
         this.taskList = taskList;
-        this.deleteListener = deleteListener; // שמירת הליסינר
     }
 
     @NonNull
@@ -47,14 +44,24 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         if (task != null) {
             tvTaskName.setText(task.getName());
             tvDeadline.setText(task.getDeadlineDate() + " - " + task.getDeadlineTime());
-        }
 
-        // הוספת אירוע למחיקת משימה
-        btnDeleteTask.setOnClickListener(v -> {
-            if (deleteListener != null) {
-                deleteListener.onTaskDelete(position);
-            }
-        });
+            btnDeleteTask.setOnClickListener(v -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null && task.getTaskId() != null) {
+                    FirebaseDatabase.getInstance()
+                            .getReference("tasks")
+                            .child(user.getUid())
+                            .child(task.getTaskId())
+                            .removeValue()
+                            .addOnCompleteListener(t -> {
+                                if (t.isSuccessful()) {
+                                    taskList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                }
+            });
+        }
 
         return convertView;
     }
