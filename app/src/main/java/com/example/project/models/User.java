@@ -4,6 +4,7 @@ public class User {
     String id;
     String fname, lname, phone,email, password;
 
+
     public User(String id, String fname, String lname, String phone, String email, String password) {
         this.id = id;
         this.fname = fname;
@@ -11,6 +12,16 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.password = password;
+    }
+
+
+
+    public User(User user) {
+        this.id = user.id;
+        this.fname = user.fname;
+        this.lname = user.lname;
+        this.phone = user.phone;
+
     }
 
     public User() {
