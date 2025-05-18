@@ -58,7 +58,7 @@
         android:layout_marginBottom="37dp"
         android:backgroundTint="#7A7443"
         android:onClick="MainActivitiy"
-
+android:textColor="@color/white"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

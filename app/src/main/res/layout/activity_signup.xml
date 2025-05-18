@@ -24,7 +24,7 @@
             android:fontFamily="@font/akaya_kanadaka"
             android:gravity="center"
             android:text="Sign up"
-            android:textColor="#2E2C2C"
+            android:textColor="@color/white"
             android:textSize="60dp"
             android:textStyle="bold" />
 
@@ -83,13 +83,14 @@
             android:backgroundTint="#7A7443"
             android:fontFamily="@font/akaya_kanadaka"
             android:text="Sign up"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="28dp" />
 
         <Button
             android:id="@+id/btnBAck"
             android:layout_width="wrap_content"
             android:layout_height="6dp"
+            android:textColor="@color/white"
             android:onClick="MainActivitiy"
             android:layout_gravity="left"
             android:layout_weight="7"
