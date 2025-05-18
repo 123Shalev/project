@@ -28,11 +28,11 @@ public class AdminPage extends AppCompatActivity implements AdapterView.OnItemCl
 
     private static final String ADMIN_EMAIL = "shalev@gmail.com";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // בדיקה אם המשתמש המחובר הוא אדמין
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null || !currentUser.getEmail().equals(ADMIN_EMAIL)) {
             Toast.makeText(this, "גישה לעמוד זה מותרת רק לאדמין", Toast.LENGTH_SHORT).show();

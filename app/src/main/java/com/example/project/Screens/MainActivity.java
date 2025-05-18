@@ -13,6 +13,8 @@ import com.example.project.R;
 import com.example.project.models.User;
 import com.example.project.services.AuthenticationService;
 import com.example.project.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("!!!!!!!", "on create");
         databaseService = DatabaseService.getInstance();
 
         btnSign = findViewById(R.id.btnSign);
@@ -49,11 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             databaseService.getUser(AuthenticationService.getInstance().getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User user) {
-                    if (user.getEmail().equals(ADMIN_EMAIL)) {
-                        btnAdmin.setVisibility(View.VISIBLE);
-                    } else {
-                        btnAdmin.setVisibility(View.GONE);
-                    }
+
                 }
 
                 @Override
@@ -62,12 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }});
         }
 
-
     }
 
     @Override
     public void onClick(View v) {
-        Log.d("!!!!!!!", "onClick");
         boolean isUserLogin = AuthenticationService.getInstance().isUserSignedIn();
         if (v == btnSign) {
             startActivity(new Intent(getApplicationContext(), Signup.class));
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         else if (v == btnAdmin) {
-            Log.d("!!!!!!!", "BtnAdminWasClick");
+
             startActivity(new Intent(getApplicationContext(), AdminPage.class));
         }
         else if (v == btnInfo) {
