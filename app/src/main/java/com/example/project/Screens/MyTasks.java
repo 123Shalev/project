@@ -12,14 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MyTasks extends AppCompatActivity {
     private ListView listViewTasks;
@@ -34,36 +31,37 @@ public class MyTasks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
+
         btnDeleteAllTasks = findViewById(R.id.btnDeleteAllTasks);
         listViewTasks = findViewById(R.id.listViewTasks);
+
         if (listViewTasks == null) {
             Toast.makeText(this, "שגיאה: רשימת המשימות לא נמצאה!", Toast.LENGTH_LONG).show();
-            finish(); // סגירת הפעילות במקרה של שגיאה חמורה
+            finish();
             return;
         }
-        btnDeleteAllTasks.setOnClickListener(v -> {
-            if (user != null) {
-                databaseTasks.removeValue().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        taskList.clear();
-
-                        Toast.makeText(MyTasks.this, "כל המשימות נמחקו", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MyTasks.this, "שגיאה במחיקת המשימות", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
 
         taskList = new ArrayList<>();
         adapter = new TaskAdapter(this, taskList);
         listViewTasks.setAdapter(adapter);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        if (user == null) return;
 
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks").child(user.getUid());
+
+        btnDeleteAllTasks.setOnClickListener(v -> {
+            databaseTasks.removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    taskList.clear();
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(MyTasks.this, "כל המשימות נמחקו", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MyTasks.this, "שגיאה במחיקת המשימות", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
         databaseTasks.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -74,6 +72,19 @@ public class MyTasks extends AppCompatActivity {
                         taskList.add(task);
                     }
                 }
+
+                // מיון לפי תאריך ושעה
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                taskList.sort((t1, t2) -> {
+                    try {
+                        Date d1 = sdf.parse(t1.getDeadlineDate() + " " + t1.getDeadlineTime());
+                        Date d2 = sdf.parse(t2.getDeadlineDate() + " " + t2.getDeadlineTime());
+                        return d1.compareTo(d2); // הכי קרוב קודם
+                    } catch (ParseException e) {
+                        return 0;
+                    }
+                });
+
                 adapter.notifyDataSetChanged();
             }
 

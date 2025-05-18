@@ -8,64 +8,81 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="249dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/logo"
+            />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="הוסף משימה חדשה"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_gravity="center"
-            android:paddingBottom="12dp"/>
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#BDBDBD"
-            android:layout_marginBottom="12dp"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:text="הוסף משימה חדשה"
+            android:textColor="#333"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etTaskName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="המשימה"
             android:background="@android:color/white"
-            android:padding="12dp"
-            android:elevation="2dp"/>
+            android:hint="שם המשימה"
+            android:padding="12dp" />
 
-
+        <EditText
+            android:id="@+id/etTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:hint="תיאור המשימה"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etDeadlineDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="תאריך יעד (YYYY-MM-DD)"
+            android:layout_marginTop="8dp"
             android:background="@android:color/white"
-            android:padding="12dp"
-            android:elevation="2dp"
-            android:layout_marginTop="8dp"/>
+            android:hint="תאריך יעד (YYYY-MM-DD)"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etDeadlineTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="שעה (HH:MM)"
+            android:layout_marginTop="8dp"
             android:background="@android:color/white"
-            android:padding="12dp"
-            android:elevation="2dp"
-            android:layout_marginTop="8dp"/>
+            android:hint="שעת יעד (HH:MM)"
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/btnSaveTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="שמור משימה"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#7A7443"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:elevation="2dp"
-            android:layout_marginTop="16dp"/>
+            android:text="שמור משימה"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#7A7443"
+            android:onClick="MainActivitiy"
+            android:text="Back"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 </ScrollView>
